@@ -1,0 +1,18 @@
+{
+  "name": "node_Spide",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "log4js": "^1.1.1",
+    "mongodb": "^2.2.26",
+    "mongoose": "^4.9.8",
+    "request": "^2.81.0",
+    "require": "^2.4.20",
+    "sequelize": "^3.30.4",
+    "tedious": "^2.0.0"
+  }
+}
