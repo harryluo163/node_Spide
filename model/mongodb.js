@@ -35,11 +35,16 @@ var huyaSchema =new Schema({
     url:String,
     SpideTiem:{type: Date, default: Date.now},
 
-}, { collection: 'huya' })
+})
+//不设置自动
+var pandaSchema =new Schema()
+
+var quanminSchema =new Schema()
 
 //  定义了一个新的模型，但是此模式还未和users集合有关联
 exports.douyuModel = db.model('douyu', douyuSchema,'douyu'); //  与douyu集合关联
-exports.huyaModel = db.model('huya', huyaSchema,'huya'); //  与douyu集合关联
-
+exports.huyaModel = db.model('huya', huyaSchema,'huya'); //  与huya集合关联
+exports.pandaModel = db.model('panda', huyaSchema,'panda'); //  与panda集合关联
+exports.quanminModel = db.model('quanmin', huyaSchema,'quanmin'); //  与quanmin集合关联
 // db.model('douyu', douyuSchema); //  与douyu集合关联
 // db.model('huya', huyaSchema); //  与douyu集合关联

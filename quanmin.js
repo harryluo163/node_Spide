@@ -21,19 +21,17 @@ var _mongodb = require('./model/mongodb');
 function start() {
 // 注：配置里的日志目录要先创建，才能加载配置，不然会出异常
     logger.writeInfo("开始记录日志");
-    spide('http://www.panda.tv/live_lists');
+    spide('http://www.quanmin.tv/json/play/list_');
 }
 
 function spide(url) {
     async.waterfall([
         function(cb){
-            request('http://www.panda.tv/live_lists?status=2&order=person_num&pageno=999&pagenum=120', function (error, response, body) {
+            request('http://www.quanmin.tv/json/play/list_1.json', function (error, response, body) {
                 //获取总页数
                 var bodyobj=JSON.parse(body);
-                if(bodyobj.errno=="0"){
-                    var total =bodyobj.data.total;
-                    var num = parseInt(Number(total)/120) ;
-                    cb(null,num);
+                if(bodyobj!=""){
+                    cb(null,bodyobj.pageCount);
                 }
             })
         },
@@ -42,8 +40,8 @@ function spide(url) {
             for (var i = 1; i <num; i++) {
                 opts.push({
                     method: 'GET',
-                    url: url,
-                    qs:{status:2,order:'person_num',pageno:i,pagenum:120}
+                    url: url+i+".json",
+                    qs:{pageno:i}
                 });
             }
             //2秒抓一次
@@ -81,11 +79,11 @@ function fetchPage(opt, cb) {
             return;
         }
         var bodyobj=JSON.parse(body);
-        if(bodyobj.errno=="0"){
+        if(bodyobj!=""){
             var itemsstr = [];
             logger.writeInfo("抓取第" + opt.qs.pageno + "页");
-            if (bodyobj.data.items.length > 0) {
-                _mongodb.pandaModel.collection.insert(bodyobj.data.items,function(err){
+            if (bodyobj.data.length > 0) {
+                _mongodb.quanminModel.collection.insert(bodyobj.data,function(err){
                     if(err){
                         console.log(err);
                     }else{
