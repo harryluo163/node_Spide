@@ -1,4 +1,5 @@
 # node_Spide
+node.js 爬虫
 目前是抓取斗鱼虎牙主播，
 使用node.js
 数据库是 sql server 和mongodb
