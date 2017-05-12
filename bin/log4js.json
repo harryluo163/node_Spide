@@ -1,5 +1,5 @@
 {  
-    "customBaseDir" :"../node_Spide/logs/",
+    "customBaseDir" :"logs/",
     "customDefaultAtt" :{  
         "type": "dateFile",  
         "absolute": true,  
