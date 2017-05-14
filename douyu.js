@@ -120,14 +120,21 @@ function fetchPage(opt, cb) {
             // });
 
 
-            _mongodb.douyuModel.collection.insert(items,function(err){
-                if(err){
-                    console.log(err);
-                }else{
-                    console.log("插入第" + opt.qs.page+"页");
-                    cb();
-                }
-            })
+            //json格式
+            // fs.writeFile('output/output'+opt.qs.page+'.json', JSON.stringify(items, null, 2), function (err) {
+            //     console.log("插入第" + opt.qs.page+"页");
+            //     cb();
+            // });
+
+
+            // _mongodb.douyuModel.collection.insert(items,function(err){
+            //     if(err){
+            //         console.log(err);
+            //     }else{
+            //         console.log("插入第" + opt.qs.page+"页");
+            //         cb();
+            //     }
+            // })
         }
 
         //

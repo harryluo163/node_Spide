@@ -7,9 +7,9 @@ var _panda = require("./panda.js")
 var _quanmin = require("./quanmin.js")
 var _longzhu = require("./longzhu.js")
  _douyu.start();
-_huya.start();
+// _huya.start();
 // _panda.start();
 // _quanmin.start();
-_longzhu.start();
+// _longzhu.start();
 
 
