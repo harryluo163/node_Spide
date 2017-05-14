@@ -2,10 +2,14 @@
  * Created by Harry on 2017/5/11.
  */
 var request = require("request");
+//文档分析
 var cheerio = require("cheerio");
 var fs = require('fs');
+//日志
 var logger = require("./bin/logHelper").helper;
+//流程控制
 var async = require("async");
+//数据库访问
 var Sequelize = require('sequelize');
 var data_db= new Sequelize(
     "UserInfo",
@@ -16,6 +20,7 @@ var data_db= new Sequelize(
         port:1433
     }
 );
+//mongodb访问
 var _mongodb = require('./model/mongodb');
 
 
@@ -26,8 +31,10 @@ function start() {
 }
 
 function spide(url) {
+    //流程控制
     async.waterfall([
         function(cb){
+            //获取总页数，直接get请求
             request('https://www.douyu.com/directory/all', function (error, response, body) {
                 //获取总页数
                 if (!error && response.statusCode == 200) {
@@ -126,7 +133,7 @@ function fetchPage(opt, cb) {
             //     cb();
             // });
 
-
+        //使用mongoDB保存
             // _mongodb.douyuModel.collection.insert(items,function(err){
             //     if(err){
             //         console.log(err);
@@ -137,10 +144,6 @@ function fetchPage(opt, cb) {
             // })
         }
 
-        //
-        // fs.writeFile('output/output'+opt.qs.page+'.json', JSON.stringify(items, null, 2), function (err) {
-        //
-        // });
 
     });
 }

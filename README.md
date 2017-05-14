@@ -19,5 +19,13 @@ node.js 爬虫
 index.js 启动项  node.exe index.js
 douyu.js 抓取斗鱼
 。。。。 。。。
+x
 
+接下来介绍思路：
 
+第一步 分析页面（找到在线直播的url）
+第二步 使用require 请求页面 获取html文档
+第三步 使用cheerio 分析页面
+第四步 保存数据到 json.js 文档 MySQL mongodb
+
+http://blog.csdn.net/q3585914/article/details/72058261
