@@ -65,7 +65,7 @@ function spide(url) {
                         logger.writeErr(err);
                         cb(err);
                     } else {
-                        logger.writeInfo("抓取结束");
+                        console.log("huya抓取结束");
                         cb();
                     }
                 }

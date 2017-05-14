@@ -63,7 +63,8 @@ function spide(url) {
                         logger.writeErr(err);
                         cb(err);
                     } else {
-                        logger.writeInfo("抓取结束");
+                        logger.writeInfo("panda抓取结束");
+                        console.log("panda抓取结束")
                         cb();
                     }
                 }

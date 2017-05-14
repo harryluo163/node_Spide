@@ -1,4 +1,7 @@
 /**
+ * Created by Harry on 2017/5/14.
+ */
+/**
  * Created by Harry on 2017/5/11.
  */
 var request = require("request");
@@ -6,43 +9,34 @@ var cheerio = require("cheerio");
 var fs = require('fs');
 var logger = require("./bin/logHelper").helper;
 var async = require("async");
-var Sequelize = require('sequelize');
-var data_db= new Sequelize(
-    "UserInfo",
-    "sa",
-    "pass1234",{
-        dialect:'mssql',
-        host:'127.0.0.1',
-        port:1433
-    }
-);
+
 var _mongodb = require('./model/mongodb');
 
 function start() {
 // 注：配置里的日志目录要先创建，才能加载配置，不然会出异常
     logger.writeInfo("开始记录日志");
-    spide('http://www.quanmin.tv/json/play/list_');
+    spide('http://api.plu.cn/tga/streams?max-results=50&start-index=1&sort-by=views&filter=0&game=0');
 }
 
 function spide(url) {
     async.waterfall([
         function(cb){
-            request('http://www.quanmin.tv/json/play/list_1.json', function (error, response, body) {
+            request('http://api.plu.cn/tga/streams?max-results=50&start-index=2297&sort-by=views&filter=0&game=0', function (error, response, body) {
                 //获取总页数
                 var bodyobj=JSON.parse(body);
                 if(bodyobj!=""){
-                    console.log("一共需要抓取" + bodyobj.pageCount+"页");
-                    cb(null,bodyobj.pageCount);
+                    console.log("一共需要抓取" +  parseInt(Number(bodyobj.data.totalItems)/50)+"页");
+                    cb(null,parseInt(Number(bodyobj.data.totalItems)/50));
                 }
             })
         },
         function(num,cb){
             var opts = [];
-            for (var i = 1; i <num; i++) {
+            for (var i = 0; i <num; i++) {
                 opts.push({
                     method: 'GET',
-                    url: url+i+".json",
-                    qs:{pageno:i}
+                    url: url,
+                    qs:{'max-results':50,'start-index':i*50,'max-results':50,'sort-by':'views','filter':0,'game':0,'pageno':i+1}
                 });
             }
             //2秒抓一次
@@ -62,8 +56,8 @@ function spide(url) {
                         logger.writeErr(err);
                         cb(err);
                     } else {
-                        logger.writeInfo("quanmin抓取结束");
-                        console.log("quanmin抓取结束");
+                        logger.writeInfo("抓取结束");
+                        console.log("longzhu抓取结束")
                         cb();
                     }
                 }
@@ -84,8 +78,8 @@ function fetchPage(opt, cb) {
         if(bodyobj!=""){
             var itemsstr = [];
             logger.writeInfo("抓取第" + opt.qs.pageno + "页");
-            if (bodyobj.data.length > 0) {
-                _mongodb.longzhuModel.collection.insert(bodyobj.data,function(err){
+            if (bodyobj.data.items.length > 0) {
+                _mongodb.quanminModel.collection.insert(bodyobj.data.items,function(err){
                     if(err){
                         console.log(err);
                     }else{

@@ -4,11 +4,12 @@
 var _douyu = require("./douyu.js")
 var _huya = require("./huya.js")
 var _panda = require("./panda.js")
-var quanmin = require("./quanmin.js")
- // _douyu.start();
-// _huya.start();
+var _quanmin = require("./quanmin.js")
+var _longzhu = require("./longzhu.js")
+ _douyu.start();
+_huya.start();
 // _panda.start();
-quanmin.start();
-
+// _quanmin.start();
+_longzhu.start();
 
 

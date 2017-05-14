@@ -67,7 +67,8 @@ function spide(url) {
                         logger.writeErr(err);
                         cb(err);
                     } else {
-                        logger.writeInfo("抓取结束");
+                        logger.writeInfo("douyu抓取结束");
+                        console.log("douyu抓取结束");
                         cb();
                     }
                 }
